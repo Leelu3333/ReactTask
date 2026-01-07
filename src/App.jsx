@@ -107,7 +107,7 @@ function App() {
   //取得所有商品資料
   const getData = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/api/${API_PATH}/products/all`);
+      const res = await axios.get(`${API_BASE}/api/${API_PATH}/admin/products`);
       setProducts(res.data.products);
     } catch (error) {
       console.log('取得所有商品資料失敗: ' + error.response.data.message);
@@ -207,144 +207,191 @@ function App() {
               </div>
 
               <div className="container">
-                <div className="row mt-5">
-                  <div className="col-md-6">
-                    <h2>產品列表</h2>
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>產品名稱</th>
-                          <th>原價</th>
-                          <th>售價</th>
-                          <th>是否啟用</th>
-                          <th>查看細節</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {products && products.length > 0 ? (
-                          products.map((item) => (
-                            <tr key={item.id}>
-                              <td>{item.title}</td>
-                              <td>{item.origin_price}</td>
-                              <td>{item.price}</td>
-                              <td>{item.is_enabled ? '啟用' : '未啟用'}</td>
-                              <td>
+                <div className="mt-5">
+                  <h2>產品列表</h2>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>產品名稱</th>
+                        <th>原價</th>
+                        <th>售價</th>
+                        <th>是否啟用</th>
+                        <th>查看細節</th>
+                        <th>編輯</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products && products.length > 0 ? (
+                        products.map((item) => (
+                          <tr key={item.id}>
+                            <td>{item.title}</td>
+                            <td>{item.origin_price}</td>
+                            <td>{item.price}</td>
+                            <td>{item.is_enabled ? '啟用' : '未啟用'}</td>
+                            <td>
+                              <button
+                                className="btn btn-primary"
+                                onClick={() => setTempProduct(item)}
+                              >
+                                查看細節
+                              </button>
+                            </td>
+                            <td>
+                              <div className="btn-group">
                                 <button
-                                  className="btn btn-primary"
-                                  onClick={() => setTempProduct(item)}
+                                  type="button"
+                                  className="btn btn-outline-primary btn-sm"
                                 >
-                                  查看細節
+                                  編輯
                                 </button>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan="5">尚無產品資料</td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="col-md-6">
-                    <h2>單一產品細節</h2>
-                    {tempProduct ? (
-                      <div className="card mb-3">
-                        {/* 主圖 */}
-                        <img
-                          src={tempProduct.imageUrl}
-                          className="card-img-top primary-image"
-                          alt="主圖"
-                        />
-                        <div className="card-body">
-                          {/* 標題、類別、風格 */}
-                          <div className="mb-3">
-                            <span className="badge bg-primary ms-2">
-                              {tempProduct.category}
-                            </span>
-                            {tempProduct.style && (
-                              <span className="badge bg-secondary ms-2">
-                                {tempProduct.style}
-                              </span>
-                            )}
-                          </div>
-                          <h5 className="card-title">{tempProduct.title}</h5>
-
-                          {/* 材料 / 顏色 / 尺寸 */}
-                          <div className="card-text d-flex mb-2">
-                            <p className="mb-0 me-2">材料：</p>
-                            <p className="mb-0">
-                              {tempProduct.description || '-'}
-                            </p>
-                          </div>
-                          <div className="card-text d-flex mb-2">
-                            <p className="mb-0 me-2">顏色：</p>
-                            <p className="mb-0">{tempProduct.color || '-'}</p>
-                          </div>
-                          <div className="card-text d-flex mb-2">
-                            <p className="mb-0 me-2">尺寸：</p>
-                            <p className="mb-0">{tempProduct.size || '-'}</p>
-                          </div>
-
-                          {/* 商品程度 / 故事 */}
-                          <div className="card-text d-flex mb-2">
-                            <p className="mb-0 me-2">商品程度：</p>
-                            <p className="mb-0">{tempProduct.level || '-'}</p>
-                          </div>
-                          <div className="card-text d-flex mb-2 ">
-                            <p className="mb-0 me-2 text-nowrap">商品故事：</p>
-                            <p className="mb-0 text-start">
-                              {tempProduct.story || '-'}
-                            </p>
-                          </div>
-
-                          {/* 價格、數量、單位 */}
-                          <div className="d-flex mb-2 justify-content-evenly">
-                            <p className="card-text text-secondary me-3">
-                              原價：<del>{tempProduct.origin_price}</del> 元
-                            </p>
-                            <p className="card-text me-3">
-                              售價：{tempProduct.price} 元
-                            </p>
-                            <p className="card-text">
-                              數量：{tempProduct.num} {tempProduct.unit}
-                            </p>
-                          </div>
-
-                          {/* 是否啟用 */}
-                          <p className="card-text">
-                            狀態: {tempProduct.is_enabled ? '啟用' : '未啟用'}
-                          </p>
-
-                          {/* 商品內容 */}
-                          {tempProduct.content && (
-                            <p className="card-text">
-                              商品內容: {tempProduct.content}
-                            </p>
-                          )}
-
-                          {/* 更多圖片 */}
-                          {tempProduct.imagesUrl?.length > 0 && (
-                            <>
-                              <h5 className="mt-3">更多圖片：</h5>
-                              <div className="d-flex flex-wrap">
-                                {tempProduct.imagesUrl.map((url, index) => (
-                                  <img
-                                    key={index}
-                                    src={url}
-                                    className="images me-2 mb-2"
-                                    alt={`副圖 ${index + 1}`}
-                                  />
-                                ))}
+                                <button
+                                  type="button"
+                                  className="btn btn-outline-danger btn-sm"
+                                >
+                                  刪除
+                                </button>
                               </div>
-                            </>
-                          )}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="5">尚無產品資料</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+
+                  {tempProduct ? (
+                    <>
+                      <div
+                        className="modal-backdrop fade show"
+                        onClick={() => setTempProduct(null)}
+                      ></div>
+                      <div className="modal fade show d-block" tabIndex="-1">
+                        <div className="modal-dialog modal-dialog-scrollable modal-lg">
+                          <div className="modal-content">
+                            <div className="p-3 text-end">
+                              <button
+                                className="btn-close"
+                                onClick={() => setTempProduct(false)}
+                              />
+                            </div>
+                            <div className="modal-body">
+                              <div className="card mb-3">
+                                {/* 主圖 */}
+                                <img
+                                  src={tempProduct.imageUrl}
+                                  className="card-img-top primary-image"
+                                  alt="主圖"
+                                />
+                                <div className="card-body">
+                                  {/* 標題、類別、風格 */}
+                                  <div className="mb-3">
+                                    <span className="badge bg-primary ms-2">
+                                      {tempProduct.category}
+                                    </span>
+                                    {tempProduct.style && (
+                                      <span className="badge bg-secondary ms-2">
+                                        {tempProduct.style}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h5 className="card-title">
+                                    {tempProduct.title}
+                                  </h5>
+
+                                  {/* 材料 / 顏色 / 尺寸 */}
+                                  <div className="card-text d-flex mb-2">
+                                    <p className="mb-0 me-2">材料：</p>
+                                    <p className="mb-0">
+                                      {tempProduct.description || '-'}
+                                    </p>
+                                  </div>
+                                  <div className="card-text d-flex mb-2">
+                                    <p className="mb-0 me-2">顏色：</p>
+                                    <p className="mb-0">
+                                      {tempProduct.color || '-'}
+                                    </p>
+                                  </div>
+                                  <div className="card-text d-flex mb-2">
+                                    <p className="mb-0 me-2">尺寸：</p>
+                                    <p className="mb-0">
+                                      {tempProduct.size || '-'}
+                                    </p>
+                                  </div>
+
+                                  {/* 商品程度 / 故事 */}
+                                  <div className="card-text d-flex mb-2">
+                                    <p className="mb-0 me-2">商品程度：</p>
+                                    <p className="mb-0">
+                                      {tempProduct.level || '-'}
+                                    </p>
+                                  </div>
+                                  <div className="card-text d-flex mb-2 ">
+                                    <p className="mb-0 me-2 text-nowrap">
+                                      商品故事：
+                                    </p>
+                                    <p className="mb-0 text-start">
+                                      {tempProduct.story || '-'}
+                                    </p>
+                                  </div>
+
+                                  {/* 價格、數量、單位 */}
+                                  <div className="d-flex mb-2 justify-content-evenly">
+                                    <p className="card-text text-secondary me-3">
+                                      原價：
+                                      <del>{tempProduct.origin_price}</del> 元
+                                    </p>
+                                    <p className="card-text me-3">
+                                      售價：{tempProduct.price} 元
+                                    </p>
+                                    <p className="card-text">
+                                      數量：{tempProduct.num} {tempProduct.unit}
+                                    </p>
+                                  </div>
+
+                                  {/* 是否啟用 */}
+                                  <p className="card-text">
+                                    狀態:{' '}
+                                    {tempProduct.is_enabled ? '啟用' : '未啟用'}
+                                  </p>
+
+                                  {/* 商品內容 */}
+                                  {tempProduct.content && (
+                                    <p className="card-text">
+                                      商品內容: {tempProduct.content}
+                                    </p>
+                                  )}
+
+                                  {/* 更多圖片 */}
+                                  {tempProduct.imagesUrl?.length > 0 && (
+                                    <>
+                                      <h5 className="mt-3">更多圖片：</h5>
+                                      <div className="d-flex flex-wrap">
+                                        {tempProduct.imagesUrl.map(
+                                          (url, index) => (
+                                            <img
+                                              key={index}
+                                              src={url}
+                                              className="images me-2 mb-2"
+                                              alt={`副圖 ${index + 1}`}
+                                            />
+                                          )
+                                        )}
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    ) : (
-                      <p className="text-secondary">請選擇一個商品查看</p>
-                    )}
-                  </div>
+                    </>
+                  ) : (
+                    <p className="text-secondary">請選擇一個商品查看</p>
+                  )}
                 </div>
               </div>
             </>

@@ -12,12 +12,22 @@ const FrontendLayout = () => {
           </li>
           <li className="nav-item">
             <Link className="nav-link active" to="/product">
-              商品列表頁面
+              商品列表
             </Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link active" to="/cart">
-              購物車頁面
+              購物車
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link active" to="/checkout">
+              結帳
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link active" to="/login">
+              後臺登入
             </Link>
           </li>
         </ul>

@@ -5,8 +5,14 @@ import Products from './views/front/Products';
 import SingleProduct from './views/front/SingleProduct';
 import Cart from './views/front/Cart';
 import NotFound from './views/front/NotFound';
+import Checkout from './views/front/Checkout';
+import Login from './views/front/Login';
+import AdminLayout from './layout/AdminLayout';
+import AdminProducts from './views/admin/AdminProducts';
+import AdminHome from './views/admin/AdminHome';
 
 export const router = createHashRouter([
+  // --- 前台 ---
   {
     path: '/',
     element: <FrontendLayout />,
@@ -26,6 +32,29 @@ export const router = createHashRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+    ],
+  },
+  // --- 後台 ---
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminHome />,
+      },
+      {
+        path: 'products',
+        element: <AdminProducts />,
       },
     ],
   },

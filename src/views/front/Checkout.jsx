@@ -31,6 +31,7 @@ function Checkout() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
 
@@ -47,6 +48,7 @@ function Checkout() {
       toast.success(`${res.data.message}`);
       const res2 = await axios.get(`${API_BASE}/api/${API_PATH}/cart`);
       setCartData(res2.data.data);
+      reset();
     } catch (error) {
       console.log(error.response);
     }

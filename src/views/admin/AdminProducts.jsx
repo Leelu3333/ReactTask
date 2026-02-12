@@ -6,6 +6,7 @@ import ProductModal from '../../components/ProductModal';
 import Pagination from '../../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import AdminSingleProduct from './AdminSingleProduct';
+import useMessage from '../../hooks/useMessage';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -43,6 +44,8 @@ function AdminProducts() {
   //分頁
   const [pagination, setPagination] = useState({});
 
+  const { showError, showSuccess } = useMessage();
+
   // 取得所有商品資料
   const getData = async (page = 1) => {
     try {
@@ -51,10 +54,9 @@ function AdminProducts() {
       );
       setProducts(res.data.products);
       setPagination(res.data.pagination);
+      showSuccess('取得成功');
     } catch (error) {
-      toast.error(
-        `取得所有商品資料失敗: ${error.response?.data?.message}，請洽工作人員`,
-      );
+      showError(error.response.data.message);
     }
   };
 
@@ -79,44 +81,6 @@ function AdminProducts() {
       toast.error(error.response?.data?.message);
     }
   };
-
-  // 驗證
-  useEffect(() => {
-    // 檢查登入狀態
-    const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('hexToken='))
-      ?.split('=')[1];
-
-    if (token) {
-      axios.defaults.headers.common.Authorization = token;
-    }
-    // 初始化 Bootstrap Modal
-    productModalRef.current = new bootstrap.Modal('#productModal', {
-      keyboard: false,
-    });
-
-    // Modal 關閉時移除焦點
-    document
-      .querySelector('#productModal')
-      .addEventListener('hide.bs.modal', () => {
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
-      });
-
-    // 檢查管理員權限並載入資料
-    const checkLoggIn = async () => {
-      try {
-        await axios.post(`${API_BASE}/api/user/check`);
-        // 載入產品資料
-        getData();
-      } catch (error) {
-        toast.error(error.response?.data?.message);
-      }
-    };
-    checkLoggIn();
-  }, []);
 
   // 使用 ref 控制 Modal
   const openModal = (product, type) => {

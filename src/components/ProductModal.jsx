@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import useMessage from '../hooks/useMessage';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 function ProductModal({ modalType, templateData, closeModal, getData }) {
   const [tempData, setTempData] = useState(templateData);
+  const { showSuccess } = useMessage();
 
   useEffect(() => {
     setTempData(templateData);
@@ -80,7 +82,7 @@ function ProductModal({ modalType, templateData, closeModal, getData }) {
     };
     try {
       const res = await axios[method](url, productData);
-      toast.success(res.data.message);
+      showSuccess(res.data.message);
       getData();
       closeModal();
     } catch (error) {

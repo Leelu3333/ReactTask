@@ -30,7 +30,6 @@ function Login() {
       // eslint-disable-next-line
       axios.defaults.headers.common.Authorization = token;
 
-      toast.success('登入成功');
       setTimeout(() => {
         navigate('/admin');
       }, 1000);

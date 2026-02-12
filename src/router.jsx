@@ -10,6 +10,7 @@ import Login from './views/front/Login';
 import AdminLayout from './layout/AdminLayout';
 import AdminProducts from './views/admin/AdminProducts';
 import AdminHome from './views/admin/AdminHome';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export const router = createHashRouter([
   // --- 前台 ---
@@ -46,7 +47,11 @@ export const router = createHashRouter([
   // --- 後台 ---
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

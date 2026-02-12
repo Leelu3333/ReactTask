@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function SingleProductModal({ product, addCart, closeModal }) {
   const [cartQty, setCartQty] = useState(1);
+
+  useEffect(() => {
+    if (product) {
+      setCartQty(1);
+    }
+  }, [product]);
 
   const handleAddCart = () => {
     addCart(product.id, cartQty);

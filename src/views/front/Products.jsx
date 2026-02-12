@@ -67,6 +67,7 @@ function Products() {
                       </span>
                     </p>
                     <button
+                      type="button"
                       className="btn btn-primary w-100"
                       onClick={() => handleView(item.id)}
                     >

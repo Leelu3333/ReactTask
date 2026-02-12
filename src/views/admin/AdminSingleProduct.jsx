@@ -13,6 +13,7 @@ function AdminSingleProduct({ tempProduct, setTempProduct }) {
           <div className="modal-content">
             <div className="p-3 text-end">
               <button
+                type="button"
                 className="btn-close"
                 onClick={() => setTempProduct(null)}
               />

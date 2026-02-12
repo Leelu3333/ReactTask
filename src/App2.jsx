@@ -145,18 +145,24 @@ function App2() {
           {/* 按鈕 */}
           <div className="d-flex justify-content-evenly mb-3">
             <button
+              type="button"
               className="btn btn-warning "
               onClick={() => openModal(INITIAL_TEMPLATE_DATA, 'create')}
             >
               新增商品
             </button>
             {/* <button
+            type='button'
               className="btn btn-info "
               //onClick={() => setPage('updatePhoto')}
             >
               上傳圖片
             </button> */}
-            <button className="btn btn-dark" onClick={checkLoggOut}>
+            <button
+              className="btn btn-dark"
+              type="button"
+              onClick={checkLoggOut}
+            >
               登出
             </button>
           </div>
@@ -176,6 +182,7 @@ function App2() {
                       <div className="modal-content">
                         <div className="p-3 text-end">
                           <button
+                            type="button"
                             className="btn-close"
                             onClick={() => setTempProduct(null)}
                           />
@@ -318,6 +325,7 @@ function App2() {
 
                             <td>
                               <button
+                                type="button"
                                 className="btn btn-primary"
                                 onClick={() => setTempProduct(item)}
                               >

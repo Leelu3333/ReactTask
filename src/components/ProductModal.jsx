@@ -402,6 +402,7 @@ function ProductModal({ modalType, templateData, closeModal, getData }) {
                               tempData.imagesUrl[tempData.imagesUrl.length] !==
                                 '' && (
                                 <button
+                                  type="button"
                                   className="btn btn-outline-primary btn-sm w-100 mb-2"
                                   onClick={handleAddImage}
                                 >
@@ -411,6 +412,7 @@ function ProductModal({ modalType, templateData, closeModal, getData }) {
 
                             {tempData.imagesUrl.length >= 2 && (
                               <button
+                                type="button"
                                 className="ms-2 btn btn-outline-danger btn-sm w-100 mb-2"
                                 onClick={handleRemoveImage}
                               >

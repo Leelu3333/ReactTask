@@ -1,16 +1,41 @@
-# React + Vite
+# 六角 React 作品實戰班 - 第二至七周主線任務
+此為六角學院 React 主線任務用。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 第二週 - RESTful API 串接
+- 使用者可以從登入頁面登入，並轉到後台商品頁面
+- 使用者若無登入直接進入商品頁面，會被導回登入頁面
+- 使用者可以查看產品列表
+- 使用者可以點擊單一產品，查看詳細資訊
 
-Currently, two official plugins are available:
+## 第三週 - 熟練 React.js
+- 可以新增、編輯、刪除商品
+- 商品啟用、關閉可以使用不同的顏色標示
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 第四週 - 元件化
+- 將後台頁面 Modal 以及分頁改成元件
+- 使用 import module 來引入元件
+- 使用者可以打開 Modal 新增、編輯、刪除商品
 
-## React Compiler
+## 第五週 - Vite、React Router
+-完成前台頁面路由的設定：
+首頁
+產品頁
+產品詳細頁
+購物車
+前台產品頁：顯示完整的產品列表，點擊產品可進入產品細節頁面
+產品詳細頁：顯示產品詳細介紹內容
+購物車頁面：呈現加入購物車的產品列表
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 第六週 - 進階語法介紹
+延續上一週的路由設置，新增登入路由 /login，並使用 React Hook Form 完成登入表單驗證功能，登入成功後轉至 /admin/product 畫面
+使用 React Hook Form 完成前台結帳付款表單驗證功能
+使用 react-loader-spinner 套件 製作 loading 效果
+串接前台 API 完成購物車功能
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 第七週 - Redux 與 Redux Toolkit
+後台產品頁面：
+- 串接取得、新增、刪除、更新產品 API
+- 啟用狀態顯示
+- Modal 細節欄位
+- 上傳圖片API
+- 分頁功能
